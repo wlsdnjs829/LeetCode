@@ -1,34 +1,31 @@
 class Solution {
+    fun isPalindrome(s: String): Boolean {
+        var i = 0
+        var j = s.length-1
+        while(i<j) {
+            if(s[i] != s[j]) {
+                return false
+            } else {
+                ++i
+                --j
+            }
+        }
+        return true
+    }
+
     fun longestPalindrome(s: String): String {
-        val length = s.length
-
-        for (index in length downTo 1) {
-            val half = index / 2
-            val even = index % 2 == 0
-
-            for (num in s.indices) {
-                if (num - half < 0 || ((num + half > length) || (num + half >= length && !even))) {
-                    continue
-                }
-
-                if (even) {
-                    val front = s.substring(num - half, num)
-                    val back = s.substring(num, num + half)
-
-                    if (front.reversed() == back) {
-                        return front + back
-                    }
-                } else {
-                    val front = s.substring(num - half, num)
-                    val back = s.substring(num + 1, num + half + 1)
-
-                    if (front.reversed() == back) {
-                        return front + s[num] + back
+        var longest = ""
+        var len = s.length
+        for(i in 0 .. len-1) {
+            for(j in i .. len-1) {
+                var oneSlice = s.slice(IntRange(i, j))
+                if(longest.length <= oneSlice.length) {
+                    if(isPalindrome(oneSlice)) {
+                        longest = oneSlice
                     }
                 }
             }
         }
-
-        return s[0].toString()
+        return longest
     }
 }
