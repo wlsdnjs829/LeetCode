@@ -1,5 +1,5 @@
 class Solution {
-   fun countAndSay(n: Int): String {
+     fun countAndSay(n: Int): String {
         var answer = ""
 
         repeat(n) {
@@ -14,7 +14,7 @@ class Solution {
             return "1"
         }
 
-        var answer = ""
+        val answer = StringBuilder()
 
         var count = 0
         var target = 'a'
@@ -22,7 +22,8 @@ class Solution {
         for (digit in digits) {
             if (target != digit) {
                 if (count != 0) {
-                    answer += count.toString() + target
+                    answer.append(count.toString())
+                    answer.append(target)
                 }
 
                 target = digit
@@ -32,7 +33,8 @@ class Solution {
             count++
         }
 
-        answer += count.toString() + target
-        return answer
+        answer.append(count.toString())
+        answer.append(target)        
+        return answer.toString()
     }
 }
