@@ -21,7 +21,7 @@ class Solution {
             result += dp(left) * dp(right)
         }
 
+        dps[n] = result
         return result
     }
-
 }
