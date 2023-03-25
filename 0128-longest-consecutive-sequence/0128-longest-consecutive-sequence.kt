@@ -32,5 +32,4 @@ class Solution {
             result!!
         } else max
     }
-
 }
