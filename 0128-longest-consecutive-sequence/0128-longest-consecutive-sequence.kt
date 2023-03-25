@@ -1,35 +1,21 @@
 class Solution {
-    private var result: Int? = null
-    private var current = 0
-    var max = 0
-
     fun longestConsecutive(nums: IntArray): Int {
-        val map = mutableMapOf<Int, Boolean>()
+        val numberSet: Set<Int> = nums.toSet()
 
-        nums.forEach { map[it] = true }
-
-        map.keys.sorted()
-            .forEach {
-                when (result) {
-                    null -> {
-                        result = 1
-                        current = it
-                    }
-                    else -> {
-                        if (current + 1 == it) {
-                            result = result?.inc()
-                        } else {
-                            max = maxOf(result!!, max)
-                            result = 1
-                        }
-
-                        current = it
-                    }
+        var maxConsequtive = 0
+        numberSet.forEach { number ->
+            if (numberSet.contains(number - 1).not()) {
+                var currentNumber = number
+                var currentConsequtive = 1
+                while (numberSet.contains(currentNumber + 1)) {
+                    currentNumber++
+                    currentConsequtive++
                 }
-            }
 
-        return if ((result?.compareTo(max) ?: 0) > 0) {
-            result!!
-        } else max
+                maxConsequtive = Math.max(maxConsequtive, currentConsequtive)
+            }
+        }
+
+        return maxConsequtive
     }
 }
