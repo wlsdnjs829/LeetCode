@@ -7,19 +7,25 @@
 
 class Solution {
     
-    val visited = mutableMapOf<Node, Node>()
+    private val nodeMap = hashMapOf<Int, Node>()
 
     fun cloneGraph(node: Node?): Node? {
-        if (node == null) return null
-        if (visited.get(node) != null) return visited[node]
-
-        val clone = Node(node.`val`)
-         visited[node] = clone
-        for (neighbor in node.neighbors) {
-            clone.neighbors.add(cloneGraph(neighbor))
-        }
-
-        return clone
+        return if (node == null) null else finderNode(node)
     }
 
+    private fun finderNode(node: Node): Node {
+        if (nodeMap[node.`val`] != null) return nodeMap[node.`val`]!!
+
+        val newNode = Node(`val` = node.`val`)
+        nodeMap[node.`val`] = newNode
+
+            for (neighbors in node.neighbors) {
+            if (neighbors == null) continue
+            newNode.neighbors.add(finderNode(neighbors))
+        }
+
+        return newNode
+    }
+
+    
 }
