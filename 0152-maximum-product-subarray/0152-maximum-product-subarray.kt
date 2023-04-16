@@ -1,16 +1,17 @@
 class Solution {
     fun maxProduct(nums: IntArray): Int {
-        var max = nums.max() ?: 0
+        var minM = nums[0];
+        var maxM = nums[0];
+        var result = nums[0];
 
-        for (index in 0..nums.size - 2) {
-            var temp = nums[index]
-
-            for (nextIndex in index + 1 until nums.size) {
-                temp *= nums[nextIndex]
-                max = maxOf(max, temp)
-            }
+        for(index in 1..(nums.size-1)) {
+            val num = nums[index];
+            val tempMinM = Math.min(num, Math.min(minM*num, maxM*num));
+            maxM = Math.max(num, Math.max(maxM*num, minM*num));
+            minM = tempMinM; 
+            result = Math.max(result, maxM);
         }
-
-        return max
+        
+        return result;
     }
 }
